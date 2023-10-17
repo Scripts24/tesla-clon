@@ -3,6 +3,7 @@ import Logo from "./Logo.astro";
 ---
 
 <header
+  id="landing-header"
   class="py-3 px-10 flex items-center fixed top-0 w-full justify-between text-white z-40"
 >
   <div class="flex flex-grow basis-0">
@@ -11,7 +12,7 @@ import Logo from "./Logo.astro";
 
   <nav>
     <ul
-      class="flex text-xs [&>li>a]:font-medium [&>li>a]:text-white [&>li>a]:inline-block [&>li>a]:px-2 [&>li>a]:py-2"
+      class="flex text-xs [&>li>a]:font-medium [&>li>a]:transition-colors  [&>li>a]:duration-500 [&>li>a]:text-current [&>li>a]:inline-block [&>li>a]:px-2 [&>li>a]:py-2"
     >
       <li><a href="#">Model S</a></li>
       <li><a href="#">Model 3</a></li>
@@ -24,7 +25,7 @@ import Logo from "./Logo.astro";
 
   <nav class="flex flex-grow basis-0 justify-end">
     <ul
-      class="flex text-xs [&>li>a]:font-medium [&>li>a]:text-white [&>li>a]:inline-block [&>li>a]:px-1 [&>li>a]:py-2"
+      class="flex text-xs [&>li>a]:font-medium [&>li>a]:transition-colors  [&>li>a]:duration-500  [&>li>a]:text-current [&>li>a]:inline-block [&>li>a]:px-1 [&>li>a]:py-2"
     >
       <li><a href="#">Soporte</a></li>
       <li><a href="#">Tienda</a></li>
@@ -33,3 +34,26 @@ import Logo from "./Logo.astro";
     </ul>
   </nav>
 </header>
+
+<script>
+  const headerEl = document.querySelector("#landing-header") as HTMLElement;
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px", // en cuanto se vea el elemento
+    threshold: 0.9, // porcentaje de visibilidad
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const { isIntersecting } = entry;
+      if (isIntersecting) {
+        const color = entry.target.getAttribute("data-header-color");
+        headerEl.style.color = color;
+      }
+    });
+  }, observerOptions);
+
+  const sectionElements = document.querySelectorAll(".landing-section");
+  sectionElements.forEach((section) => observer.observe(section));
+</script>
