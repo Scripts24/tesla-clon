@@ -3,10 +3,10 @@ import Section from "./Section.astro";
 ---
 
 <Section
-  title="Model Y"
+  title="Model S"
   subtitle="Concertar una prueba de conducción"
-  color="white"
-  id="model-y"
+  color="black"
+  id="model-s"
 >
   <div slot="footer" class="gap-x-6 flex mx-auto">
     <a
@@ -23,12 +23,12 @@ import Section from "./Section.astro";
     >
   </div>
 
-  <video
-  slot="background"
-  class="object-center object-cover h-full w-full"
-  autoplay
-  muted
-  loop
-  src="/Model-Y.mp4"></video>
+  <img
+    slot="background"
+    alt="Model S"
+    class="h-full w-full object-cover object-center"
+    src="/Model-S.avif"
+    id="bg-image-models"
+  />
 </Section>
 

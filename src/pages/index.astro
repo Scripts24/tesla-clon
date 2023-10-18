@@ -4,21 +4,30 @@ import LandingHeader from "../components/LandingHeader.astro"
 import HeroSection from "../components/HeroSection.astro"
 import ModelX from "../components/ModelX.astro"
 import ModelY from "../components/ModelY.astro"
+import Model3 from "../components/Model3.astro"
+import ModelS from "../components/ModelS.astro"
 ---
 
-<Layout title="Tesla">
+<Layout title="Tesla clon con Astro">
   
     <LandingHeader />
 
   <main class="snap-y snap-mandatory relative w-full h-screen overflow-auto overflow-x-hidden scroll-smooth">
     <div class="snap-center">
+      <ModelY /> 
+    </div>
+    <div class="snap-center">
+      <Model3 /> 
+    </div>
+    <div class="snap-center">
+      <ModelX /> 
+    </div>
+    <div class="snap-center">
+      <ModelS /> 
+    </div>
+    <div class="snap-center">
     <HeroSection /> 
   </div>
-  <div class="snap-center">
-    <ModelY /> 
-  </div>
-  <div class="snap-center">
-    <ModelX /> 
-  </div>
+  
   </main>
 </Layout>
