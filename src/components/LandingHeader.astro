@@ -2,6 +2,7 @@
 import Logo from "./Logo.astro";
 ---
 
+
 <header
   id="landing-header"
   class="py-3 px-10 flex items-center fixed top-0 w-full justify-between text-white z-40"
@@ -10,7 +11,7 @@ import Logo from "./Logo.astro";
     <Logo />
   </div>
 
-  <nav>
+  <nav class="hidden md:flex" >
     <ul
       class="flex text-xs [&>li>a]:font-medium [&>li>a]:transition-colors  [&>li>a]:duration-500 [&>li>a]:text-current [&>li>a]:inline-block [&>li>a]:px-2 [&>li>a]:py-2"
     >
@@ -22,7 +23,7 @@ import Logo from "./Logo.astro";
     </ul>
   </nav>
 
-  <nav class="flex flex-grow basis-0 justify-end">
+  <nav class="md:flex flex-grow basis-0 justify-end hidden">
     <ul
       class="flex text-xs [&>li>a]:font-medium [&>li>a]:transition-colors  [&>li>a]:duration-500  [&>li>a]:text-current [&>li>a]:inline-block [&>li>a]:px-1 [&>li>a]:py-2"
     >
@@ -35,9 +36,16 @@ import Logo from "./Logo.astro";
       <li><a href="#"><span class="material-symbols-outlined">
         account_circle
         </span></a></li>
-      <li class="lg:hidden"><a href="#">Menú</a></li>
     </ul>
   </nav>
+  <button id="menu-button" class="md:hidden block backdrop-blur bg-black/20 rounded px-4 py-2">Menú</button>
+  <button 
+  class="absolute top-[10px] right-[18px] z-50  hover:rotate-180 transition duration-300 ease-in-out md:hidden"
+  id="close-button">
+  <span class="material-symbols-outlined text-black font-medium text-2xl md:hidden">
+    close
+    </span>
+</button>
 
   <div
     id="menu-backdrop"
@@ -53,6 +61,52 @@ import Logo from "./Logo.astro";
   </div>
 </header>
 
+
+<!-- Menú hamburguesa (inicialmente oculto) -->
+<div id="mobile-menu" class="mobile-menu md:hidden bg-white text-black h-screen mt-[60px]">
+  <ul class="mobile-menu-list flex flex-col h-full justify-between py-4 [&>li>a]:my-2 [&>li>a]:ml-6" >
+    <li><a href="#">Vehículos</a></li>
+    <li><a href="#">Energía</a></li>
+    <li><a href="#">Carga</a></li>
+    <li><a href="#">Descubrir</a></li>
+    <li><a href="#">Tienda</a></li>
+    <li><a href="#"><span class="material-symbols-outlined">help</span></a></li>
+    <li><a href="#"><span class="material-symbols-outlined">language</span></a></li>
+    <li><a href="#"><span class="material-symbols-outlined">account_circle</span></a></li>
+  </ul>
+</div>
+
+<script>
+// Variables de los elementos del DOM
+const menuButton = document.getElementById('menu-button');
+const closeButton = document.getElementById('close-button');
+const mobileMenu = document.getElementById('mobile-menu');
+
+// Ocultar el menú hamburguesa y el botón de cierre inicialmente
+mobileMenu.classList.add('hidden');
+closeButton.style.display = 'none';
+
+// Escucha el evento click en el botón de menú hamburguesa
+menuButton.addEventListener('click', function () {
+  mobileMenu.classList.toggle('hidden'); // Muestra u oculta el menú
+  if (mobileMenu.classList.contains('hidden')) {
+    menuButton.textContent = 'Menú'; // Cambia el texto a "Menú" cuando se cierra
+    closeButton.style.display = 'none'; // Oculta el icono de cierre
+  } else {
+    menuButton.textContent = ''; // Limpia el texto del botón
+    closeButton.style.display = 'block'; // Muestra el icono de cierre cuando se abre
+  }
+});
+
+// Escucha el evento click en el botón "close"
+closeButton.addEventListener('click', function () {
+  mobileMenu.classList.add('hidden'); // Cierra el menú
+  menuButton.textContent = 'Menú'; // Restaura el texto a "Menú"
+  closeButton.style.display = 'none'; // Oculta el icono de cierre
+});
+</script>
+
+<!-- Backdrop -->
 <script>
   const listItem = document.querySelectorAll("#landing-header li")
   const menuBackDrop = document.querySelector("#menu-backdrop") as HTMLElement
@@ -77,6 +131,8 @@ import Logo from "./Logo.astro";
   })
 </script>
 
+
+<!-- Intersection observer -->
 <script>
   const headerEl = document.querySelector("#landing-header") as HTMLElement;
 
